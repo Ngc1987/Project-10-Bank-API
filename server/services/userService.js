@@ -9,6 +9,9 @@ module.exports.createUser = async serviceData => {
       throw new Error('Email already exists')
     }
 
+    console.log("=========")
+    console.log(serviceData)
+    console.log("=========")
     const hashPassword = await bcrypt.hash(serviceData.password, 12)
 
     const newUser = new User({
