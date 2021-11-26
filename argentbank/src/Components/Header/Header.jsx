@@ -5,6 +5,10 @@ import "./Header.scss"
 
 
 export default function Header() {
+
+	const userInfo = localStorage.getItem("userInfo");
+
+	
 	return (
 		<nav className="main-nav">
 			<Link to="/" className="main-nav-logo" href="./index.html">
@@ -16,10 +20,20 @@ export default function Header() {
 				<h1 className="sr-only">Argent Bank</h1>
 			</Link>
 			<div>
-				<Link to="signin" className="main-nav-item" href="./sign-in.html">
-					<i className="fa fa-user-circle"></i>
-					Sign In
-				</Link>
+
+			{
+				userInfo ? 
+						<Link to="/" className="main-nav-item" href="./sign-in.html">
+							<i className="fa fa-user-circle"></i>
+							Log out
+						</Link>
+						:
+						<Link to="signin" className="main-nav-item" href="./sign-in.html">
+							<i className="fa fa-user-circle"></i>
+							Sign In
+						</Link>
+			}
+				
 			</div>
 		</nav>
 	)

@@ -1,23 +1,21 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import "./SignIn.scss"
-import { Link } from "react-router-dom"
+import Loader from '../../Components/Loader/Loader';
+import { Link, useNavigate} from "react-router-dom"
+// import {useHistory} from "react"
 import axios from 'axios';
+// import history from '../../Services/history';
 
 export default function SignIn() {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState(false);
+	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 
-	// const handleUserName = (e) => {
-	// 	console.log(e)
-	// 	setUserName(e.target.value)
-	// }
-	// const handlePassword = (e) => {
-	// 	setPassword(e.target.value)
-	// }
-	const submitHandler = async (e) => {
+	const navigateTo =useNavigate()
+
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 		// console.log(email, password)
 
@@ -40,18 +38,27 @@ export default function SignIn() {
 			console.log(data)
 			localStorage.setItem("userInfo", JSON.stringify(data))
 			setLoading(false)
+			navigateTo("/dashboard")
 
 		} catch (error) {
 			setError(error.response.data.message)
 		}
 	}
 
+	if(error) {
+		console.error(error)
+	}
+	if(loading) {
+		return <Loader />
+	}
+
 	return (
 		<main className="signInMain bg-dark">
 			<section className="sign-in-content">
+			{/* {loading && <Loader />} */}
 				<i className="fa fa-user-circle sign-in-icon"></i>
 				<h1>Sign In</h1>
-				<form onSubmit={submitHandler} >
+				<form onSubmit={handleSubmit} >
 					<div className="input-wrapper">
 						<label for="username">Username</label>
 						<input 
@@ -75,9 +82,10 @@ export default function SignIn() {
 						<label for="remember-me">Remember me</label>
 					</div>
 					 {/* PLACEHOLDER DUE TO STATIC SITE  */}
-					<Link to="/user" className="sign-in-button">Sign In</Link>
+					{/* <Link to="/user" className="sign-in-button">Sign In</Link> */}
 					 {/* SHOULD BE THE BUTTON BELOW  */}
 					<button className="sign-in-button">Sign In</button> 
+					<p>Pas encore inscrit ? <Link to="/register" >Inscrivez-vous</Link></p>
 					
 				</form>
 			</section>
