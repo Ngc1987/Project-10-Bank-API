@@ -17,7 +17,7 @@ dbConnection()
 // Handle CORS issues
 app.use(cors())
 
-// Request payload middleware
+// Request payload middleware (like bodyParser)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

@@ -8,7 +8,7 @@ export default function Home() {
 	return (
 		<div>
 
-			<main>
+			<main className="home" >
 				<div className="hero">
 					<section className="hero-content">
 						<h2 className="sr-only">Promoted Content</h2>

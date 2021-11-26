@@ -47,10 +47,14 @@ module.exports.getUserProfile = async serviceData => {
   }
 }
 
+
+
+
+
 module.exports.loginUser = async serviceData => {
   try {
     const user = await User.findOne({ email: serviceData.email })
-
+      console.log(user)
     if (!user) {
       throw new Error('User not found!')
     }
@@ -66,7 +70,7 @@ module.exports.loginUser = async serviceData => {
       process.env.SECRET_KEY || 'default-secret-key',
       { expiresIn: '1d' }
     )
-
+      
     return { token }
   } catch (error) {
     console.error('Error in userService.js', error)
