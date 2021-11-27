@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
-import "./SignIn.scss"
-import Loader from '../../Components/Loader/Loader';
+import "./Login.scss"
+import Loader from '../../Components/Loaders/Loader';
+import FormLoader from '../../Components/Loaders/FormLoader';
 import { Link, useNavigate} from "react-router-dom"
 // import {useHistory} from "react"
 import axios from 'axios';
@@ -38,7 +39,7 @@ export default function SignIn() {
 			console.log(data)
 			localStorage.setItem("userInfo", JSON.stringify(data))
 			setLoading(false)
-			navigateTo("/dashboard")
+			navigateTo("/profile")
 
 		} catch (error) {
 			setError(error.response.data.message)
@@ -88,6 +89,7 @@ export default function SignIn() {
 					<p>Pas encore inscrit ? <Link to="/register" >Inscrivez-vous</Link></p>
 					
 				</form>
+				<div className="formLoader"></div>
 			</section>
 		</main>
 	)

@@ -1,5 +1,5 @@
 import React from 'react'
-import "./User.scss"
+import "./Profile.scss"
 
 export default function User() {
 	return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./Register.scss"
-import Loader from '../../Components/Loader/Loader';
-import { Link, useNavigate } from "react-router-dom"
+import Loader from '../../Components/Loaders/Loader';
+import { Link, useNavigate } from "react-router-dom";
 // import {useHistory} from "react"
 import axios from 'axios';
 // import history from '../../Services/history';
