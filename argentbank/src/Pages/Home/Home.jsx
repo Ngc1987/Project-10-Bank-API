@@ -1,30 +1,11 @@
-import Header from "../../Components/Header/Header";
-import "./Home.scss"
-import { useEffect } from "react";
-import { useNavigate} from "react-router-dom"
+import "./Home.scss";
 
 import React from 'react'
 
 export default function Home() {
 
-	const navigateTo = useNavigate()
-
-	// console.log(history)
-	useEffect(() => {
-
-		const userInfo = localStorage.getItem("userInfo");
-
-		if (userInfo) {
-			navigateTo("/dashboard")
-		}
-
-	}, [navigateTo])
-
-
-
 	return (
 		<div>
-
 			<main className="home" >
 				<div className="hero">
 					<section className="hero-content">

@@ -1,6 +1,6 @@
 // import {Spinner} from 'react-bootstrap';
-import "./Loader.scss"
-import React from 'react'
+import "./Loader.scss";
+import React from 'react';
 
 export default function Loader() {
 	return (

@@ -84,6 +84,44 @@
 	background-color: #00bc77;
 	color: #fff;
   }
+
+  .changeUserInfos {
+	  width: 250px;
+	  position: absolute;
+	  top: 30%;
+	  left: 50%;
+	  background-color: #00bc77;
+	  padding: 20px 20px;
+	transition: all 0.3s ease;
+}
+
+.close {
+	position: fixed;
+	top: 10px;
+	right: 8px;
+	border-radius: 50%;
+	border: 1px solid black;
+	width: 15px;
+	height: 15px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.confirmButton {
+	padding: 5px 10px;
+	  color: #2c3e50;
+	  font-weight: bold;
+}
+
+.visible {
+	opacity: 1;
+	  transform: translate(-50%, -30%);
+}
+
+.hidden {
+	opacity: 0;
+	transform: translate(-50%, -230%);
+}
   
   @media (min-width: 720px) {
 	.account {

@@ -1,19 +1,17 @@
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import Home from "./Pages/Home/Home"
+import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Profile from "./Pages/Profile/Profile";
 import './App.scss';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import history from "./Services/history";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
 
-
-            <Router history={history}>
+            <Router>
                   <Header/>
                         <Routes>
                               <Route path="/" element={<Home/>}/>
@@ -25,8 +23,6 @@ function App() {
                   <Footer />
             </Router>
             
-
-      
     </div>
   );
 }

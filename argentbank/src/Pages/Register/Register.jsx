@@ -1,59 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import "./Register.scss"
+import React, { useEffect, useState} from 'react';
+import "./Register.scss";
 import Loader from '../../Components/Loaders/Loader';
 import { Link, useNavigate } from "react-router-dom";
-// import {useHistory} from "react"
-import axios from 'axios';
-// import history from '../../Services/history';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../actions/userActions';
 
 export default function Register() {
-
+	// Take the datas from the inputs
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [error, setError] = useState(null);
-	const [loading, setLoading] = useState(false);
 
-	const navigateTo = useNavigate()
+	const navigateTo = useNavigate();
+	const dispatch = useDispatch();
+	const userRegister = useSelector((state) => state.userRegister);
+	const { loading, error, userInfo} = userRegister;
 
-	const handleRegister = async (e) => {
-		e.preventDefault()
-		// console.log(email, password)
-
-		try {
-			const config = {
-				headers: {
-					"Content-type": "application/json"
-				}
-			}
-
-			setLoading(true)
-			const { data } = await axios.post(
-				"http://localhost:3001/api/v1/user/signup",
-				{
-					email,
-					password,
-					firstName,
-					lastName
-				},
-				config
-			)
-			console.log(data)
-			navigateTo("/signin")
-			// localStorage.setItem("userInfo", JSON.stringify(data))
-			setLoading(false)
-
-		} catch (error) {
-			setError(error.response.data.message)
+	useEffect(() => {
+		if (userInfo) {
+			navigateTo("/profile");
 		}
+	}, [navigateTo, userInfo])
+	
+	const handleRegister = async (e) => {
+		e.preventDefault();
+		dispatch(register(firstName, lastName, email, password));
 	}
 
 	if (error) {
-		console.error(error)
+		console.error(error);
 	}
 	if (loading) {
-		return <Loader />
+		return <Loader />;
 	}
 
 	return (
@@ -64,7 +43,7 @@ export default function Register() {
 				<h1>Register</h1>
 				<form onSubmit={handleRegister} >
 					<div className="input-wrapper">
-						<label for="username">First Name</label>
+						<label htmlFor="username">First Name</label>
 						<input
 							type="text"
 							id="firstname"
@@ -73,7 +52,7 @@ export default function Register() {
 						/>
 					</div>
 					<div className="input-wrapper">
-						<label for="username">Username</label>
+						<label htmlFor="username">Username</label>
 						<input
 							type="text"
 							id="lastname"
@@ -82,7 +61,7 @@ export default function Register() {
 						/>
 					</div>
 					<div className="input-wrapper">
-						<label for="username">Username</label>
+						<label htmlFor="username">Username</label>
 						<input
 							type="text"
 							id="username"
@@ -91,7 +70,7 @@ export default function Register() {
 						/>
 					</div>
 					<div className="input-wrapper">
-						<label for="password">Password</label>
+						<label htmlFor="password">Password</label>
 						<input
 							type="password"
 							id="password"
@@ -107,7 +86,7 @@ export default function Register() {
 					{/* <Link to="/user" className="sign-in-button">Register</Link> */}
 					{/* SHOULD BE THE BUTTON BELOW  */}
 					<button className="sign-in-button">Register</button>
-					<p>Déjà inscrit ? <Link to="/signin" >Se connecter</Link></p>
+					<p>Already registered ? <Link className="formLink" to="/login" >Log in</Link></p>
 
 				</form>
 			</section>
