@@ -18,12 +18,13 @@ export default function User() {
 	const { loading, error, userInfo } = userProfile;
 
 	const token = JSON.parse(localStorage.getItem("token")).body.token;
-	console.log(userInfo, token)
+	// console.log(userInfo, token)
+
+	// const userData = JSON.parse(localStorage.getItem("userInfo"));
+	
 
 	useEffect(() => {
 		dispatch(getUserInfos(token));
-		// const userData = JSON.parse(localStorage.getItem("userInfo"));
-		// SetUser(userData)
 	}, [dispatch, token])
 
 	// console.log(userProfile.userInfo.body)

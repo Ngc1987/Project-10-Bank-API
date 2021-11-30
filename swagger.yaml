@@ -69,6 +69,7 @@ paths:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
           required: true
       produces:
         - application/json
@@ -92,6 +93,7 @@ paths:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
           required: true
         - in: body
           name: body
@@ -110,6 +112,189 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+          
+          
+  /user/accounts/{accountId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get All Transactions of an account
+      description: API for fetching all transactions of a user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          required: true
+          description: Numeric ID of the account to get
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User account number {id} transactions successully
+          schema:
+            $ref: '#/definitions/ApiAllTransactionsResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+          
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Post One Transaction of an account
+      description: API for posting one transaction of a user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Post new user transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/PostTransaction'
+        - in: path
+          name: accountId
+          type: integer
+          required: true
+          description: Numeric ID of the account to post transaction in
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User posting new transaction successully
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+          
+  /user/accounts/{accountId}/transactions/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get One Transaction of an account
+      description: API for fetching one transactions of a user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          required: true
+          description: Numeric ID of the account to get
+        - in: path
+          name: transactionId
+          type: integer
+          required: true
+          description: Numeric ID of the transaction to get
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User fetching transaction {id} from account number {id}  successully
+          schema:
+            $ref: '#/definitions/ApiTransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+          
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Put one transaction of an account
+      description: API for modify one transaction of a user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Update user transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/PostTransaction'
+        - in: path
+          name: accountId
+          type: integer
+          required: true
+          description: Numeric ID of the account to put transaction in
+        - in: path
+          name: transactionId
+          type: integer
+          required: true
+          description: Numeric ID of the transaction to get
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User modify transaction successully
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+          
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Put one transaction of an account
+      description: API for modify one transaction of a user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Update user transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/PostTransaction'
+        - in: path
+          name: accountId
+          type: integer
+          required: true
+          description: Numeric ID of the account to put transaction in
+        - in: path
+          name: transactionId
+          type: integer
+          required: true
+          description: Numeric ID of the transaction to get
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User delete transaction successully
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  
+  
+          
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -164,3 +349,75 @@ definitions:
         type: string
       lastName:
         type: string
+  
+  ApiTransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          description:
+            type: string
+          date:
+            type: string
+          amount:
+            type: integer
+          transactionType:
+            type: string
+          notes:
+            type: string
+            
+  ApiAllTransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transactions:
+            type: object
+            properties:
+              id:
+                type: string
+              description:
+                type: string
+              date:
+                type: string
+              amount:
+                type: integer
+              transactionType:
+                type: string
+              notes:
+                type: string          
+            
+  PostTransaction:
+    properties:
+      id:
+        type: string
+        description: user email
+      description:
+        type: string
+        description: user email
+      date:
+        type: string
+        description: user password
+      amount:
+        type: string
+        description: user password
+      transactionType:
+        type: string
+        description: user password
+      notes:
+        type: string
+        description: user password
+            
+            
