@@ -13,6 +13,7 @@ import { GET_USER_FAIL,
 		USER_UPDATE_SUCCESS} from "../constants/userConstants";
 import axios from "axios";
 
+// Our reducers for the application
 export const login = (email, password) => async (dispatch) => {
 	try {
 		dispatch({type: USER_LOGIN_REQUEST});

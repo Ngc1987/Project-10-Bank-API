@@ -15,6 +15,7 @@ const reducer = combineReducers({
 
 // Check if user datas already on local storage
 const userInfosFromStorage = localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")):null;
+
 // If user datas already on local storage set them on the initial state
 const initialState = {
 	userInfos: { userInfo: userInfosFromStorage}

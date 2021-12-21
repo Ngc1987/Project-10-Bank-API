@@ -1,11 +1,19 @@
 import React, { useEffect, useState} from 'react';
-import "./Register.scss";
+// Same css of Login component
+import "../Login/Login.scss";
 import Loader from '../../Components/Loaders/Loader';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../actions/userActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function Register() {
+
+/**
+ * @component
+ * @description Component Register, who is rended when the user click on "register" on the SignIn form.
+ */
+function Register() {
 	// Take the datas from the inputs
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -15,14 +23,17 @@ export default function Register() {
 	const navigateTo = useNavigate();
 	const dispatch = useDispatch();
 	const userRegister = useSelector((state) => state.userRegister);
+	// Taking these variables from the redux store
 	const { loading, error, userInfo} = userRegister;
 
+	// If there is userInfo on our store, we go to profile page
 	useEffect(() => {
 		if (userInfo) {
 			navigateTo("/profile");
 		}
 	}, [navigateTo, userInfo])
 	
+	// Put the user email, lastName, firstName and password on our store to connect the user
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		dispatch(register(firstName, lastName, email, password));
@@ -36,13 +47,17 @@ export default function Register() {
 	}
 
 	return (
-		<main className="signInMain bg-dark">
-			<section className="sign-in-content">
-				{/* {loading && <Loader />} */}
-				<i className="fa fa-user-circle sign-in-icon"></i>
+
+		<main className="form bg-dark">
+
+			<section className="form__content">
+
+				<FontAwesomeIcon icon={faUserCircle} size="lg" />
 				<h1>Register</h1>
+
 				<form onSubmit={handleRegister} >
-					<div className="input-wrapper">
+
+					<div className="form__content__input-wrapper">
 						<label htmlFor="username">First Name</label>
 						<input
 							type="text"
@@ -51,8 +66,9 @@ export default function Register() {
 							onChange={(e) => setFirstName(e.target.value)}
 						/>
 					</div>
-					<div className="input-wrapper">
-						<label htmlFor="username">Username</label>
+
+					<div className="form__content__input-wrapper">
+						<label htmlFor="username">Last name</label>
 						<input
 							type="text"
 							id="lastname"
@@ -60,16 +76,18 @@ export default function Register() {
 							onChange={(e) => setLastName(e.target.value)}
 						/>
 					</div>
-					<div className="input-wrapper">
-						<label htmlFor="username">Username</label>
+
+					<div className="form__content__input-wrapper">
+						<label htmlFor="username">Email</label>
 						<input
-							type="text"
-							id="username"
-							name="username"
+							type="email"
+							id="email"
+							name="email"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
-					<div className="input-wrapper">
+
+					<div className="form__content__input-wrapper">
 						<label htmlFor="password">Password</label>
 						<input
 							type="password"
@@ -78,18 +96,18 @@ export default function Register() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-					{/* <div className="input-remember">
-						<input type="checkbox" id="remember-me" />
-						<label for="remember-me">Remember me</label>
-					</div> */}
-					{/* PLACEHOLDER DUE TO STATIC SITE  */}
-					{/* <Link to="/user" className="sign-in-button">Register</Link> */}
-					{/* SHOULD BE THE BUTTON BELOW  */}
-					<button className="sign-in-button">Register</button>
-					<p>Already registered ? <Link className="formLink" to="/login" >Log in</Link></p>
+
+					<button className="form__content__button">Register</button>
+					<p>Already registered ? <Link className="form__content__button-link" to="/login" >Log in</Link></p>
 
 				</form>
 			</section>
 		</main>
 	)
 }
+
+Register.propTypes = {
+
+}
+
+export default Register;

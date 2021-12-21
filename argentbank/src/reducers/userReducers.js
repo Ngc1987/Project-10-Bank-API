@@ -10,7 +10,8 @@ import { GET_USER_FAIL,
 		USER_REGISTER_SUCCESS,
 		USER_UPDATE_FAIL,
 		USER_UPDATE_REQUEST,
-		USER_UPDATE_SUCCESS} from "../constants/userConstants"
+		USER_UPDATE_SUCCESS,
+} from "../constants/userConstants"
 
 // Login and Logout Reducers
 export const userLoginReducer = (state={}, action) => {
@@ -64,6 +65,8 @@ export const getUserReducer = (state={}, action) => {
 			return {loading: false, userInfo: action.payload};
 		case GET_USER_FAIL:
 			return {loading: false, error: action.payload};
+		case USER_LOGOUT:
+			return { loading: false, userInfo: null};
 		default:
 			return state;
 	}

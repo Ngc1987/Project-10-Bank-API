@@ -3,45 +3,77 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom"
 import "./Header.scss";
 import { logout } from '../../actions/userActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default function Header() {
+
+/**
+ * @component
+ * @description Component Header who appears on the top of all pages of the application 
+ */
+function Header() {
 
 	const dispatch = useDispatch();
-	const userLogin = useSelector((state) => state.userLogin);
-	const { userInfo } = userLogin;
+	// Check if connected user, to dispatch the good path for the link
+	const userInfos = useSelector((state) => state.userInfos);
+	const { userInfo } = userInfos;
 	const navigateTo = useNavigate();
-	// LogOut function
+	// Logout function
 	const handleLogout = () => {
 		dispatch(logout());
 		navigateTo("/");
 	}
 
+	// console.log(userInfo)
+
 	return (
-		<nav className="main-nav">
-			<Link to="/" 
-				className="main-nav-logo">
-				<img className="main-nav-logo-image"
-					 src={process.env.PUBLIC_URL + "/Assets/argentBankLogo.png"}
-					 alt="Argent Bank Logo"/>
-				<h1 className="sr-only">Argent Bank</h1>
+		<nav className="header">
+
+			<Link to={userInfo ? "/profile" : "/"}
+				className="header-logo">
+
+					<img
+						src={process.env.PUBLIC_URL + "/Assets/argentBankLogo.png"}
+						alt="Argent Bank Logo" />
+					{/* <h1 className="sr-only">Argent Bank</h1> */}
+
 			</Link>
-			<div>
-				{userInfo ? <Link 
-							to="/" 
-							className="main-nav-item"
+
+			<div className="header__nav" >
+
+				{userInfo ?
+					<>
+						
+						<p className="header__nav-item" ><FontAwesomeIcon icon={faUserCircle} size="md" /><span>{userInfo.firstName}</span></p>
+						
+						<Link
+							to="/"
+							className="header__nav-item"
 							onClick={handleLogout}>
-							<i className="fa fa-user-circle"></i>
-							Log out
-							</Link>
-						  :
-							<Link 
-							to="login" 
-							className="main-nav-item">
-							<i className="fa fa-user-circle"></i>
-							Sign In
-							</Link>
+							<FontAwesomeIcon icon={faSignOutAlt} size="md" />
+							<span>Sign Out</span>
+						</Link>
+					</>
+					:
+					<>
+						
+						<Link
+							to="login"
+							className="header__nav-item">
+							<FontAwesomeIcon icon={faUserCircle} size="lg" />
+							<span>Sign In</span>
+						</Link>
+					</>
 				}
+
 			</div>
 		</nav>
 	)
 }
+
+Header.propTypes = {
+
+}
+
+export default Header;

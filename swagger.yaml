@@ -163,7 +163,7 @@ paths:
           description: Post new user transaction attributes
           required: true
           schema:
-            $ref: '#/definitions/PostTransaction'
+            $ref: '#/definitions/Transaction'
         - in: path
           name: accountId
           type: integer
@@ -172,7 +172,7 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        '201':
           description: User posting new transaction successully
         '400':
           description: Invalid Fields
@@ -233,7 +233,7 @@ paths:
           description: Update user transaction attributes
           required: true
           schema:
-            $ref: '#/definitions/PostTransaction'
+            $ref: '#/definitions/Transaction'
         - in: path
           name: accountId
           type: integer
@@ -247,7 +247,7 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        '201':
           description: User modify transaction successully
         '400':
           description: Invalid Fields
@@ -272,7 +272,7 @@ paths:
           description: Update user transaction attributes
           required: true
           schema:
-            $ref: '#/definitions/PostTransaction'
+            $ref: '#/definitions/DeleteTransaction'
         - in: path
           name: accountId
           type: integer
@@ -383,41 +383,58 @@ definitions:
       body:
         type: object
         properties:
-          transactions:
-            type: object
-            properties:
-              id:
-                type: string
-              description:
-                type: string
-              date:
-                type: string
-              amount:
-                type: integer
-              transactionType:
-                type: string
-              notes:
-                type: string          
-            
-  PostTransaction:
+          transaction:
+            type: array
+            items: 
+              $ref: "#/definitions/Transaction"
+              
+          # transactions:
+          #   type: object
+          #   properties:
+          #     id:
+          #       type: string
+          #     description:
+          #       type: string
+          #     date:
+          #       type: string
+          #     amount:
+          #       type: integer
+          #     transactionType:
+          #       type: string
+          #       enum: ["electronic", "cash"]
+          #     notes:
+          #       type: string   
+          #     food: 
+          #       $ref: '#/definitions/Food'
+  Transaction:
+    properties:
+      id:
+        type: string
+      description:
+        type: string
+      date:
+        type: string
+      amount:
+        type: integer
+      transactionType:
+        type: string
+        enum: ["electronic", "cash"]
+      notes:
+        type: string   
+      food: 
+        $ref: '#/definitions/Food'
+
+  DeleteTransaction:
     properties:
       id:
         type: string
         description: user email
-      description:
+        
+  Food:
+    properties:
+      name:
         type: string
-        description: user email
-      date:
-        type: string
-        description: user password
-      amount:
-        type: string
-        description: user password
-      transactionType:
-        type: string
-        description: user password
-      notes:
-        type: string
-        description: user password
+      id: 
+        type: number
             
             

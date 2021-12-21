@@ -1,66 +1,93 @@
-// header {
-// 	display: flex;
-// 	flex-direction: row;
-// 	justify-content: space-between;
-// 	width: 100%;
 
-// 	.connexion {
-// 		display: flex;
-// 		flex-direction: row;
-// 		justify-content: space-between;
-
-// 		.link {
-// 			margin-right: 30px;
-// 		}
-// 	}
-// }
-
-.sr-only {
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-	-webkit-clip-path: inset(50%) !important;
-	clip-path: inset(50%) !important; /* 2 */
-	height: 1px !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	padding: 0 !important;
-	position: absolute !important;
-	width: 1px !important;
-	white-space: nowrap !important; /* 3 */
-  }
-  
-  .main-nav {
+.header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 5px 20px;
-  }
+
+	&-logo {
+		display: flex;
+		align-items: center;
+
+		img {
+			max-width: 100%;
+			width: 200px;
+		}
+  	}
+
+	&__nav{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		p {
+			font-weight: bold;
+			padding: 0 5px;
+			margin-right: 10px;
+		}
+
+		a {
+			font-weight: bold;
+			color: #2c3e50;
+		}
+
+		span {
+			margin-left: 4px;
+		}
+
+		&-item {
+			text-decoration: none;
+			margin-right: 0.5rem;
+			padding-left: 5px;
+
+			&:hover {
+				text-decoration: underline;
+			}
+
+		}
+	}
+}
+
+
+@media (max-width: 460px) {
+	.header {
+		flex-direction: column;
+
+		&__nav {
+			justify-content: center;
+			flex-wrap: wrap;
+			width: 80%;
+
+			&-item {
+				margin-top: -5px;
+				margin-bottom: 5px;
+				margin-left: 10px;
+				margin-right: 10px;
+				padding-left: 0;
+				width: 100px;
+			}
+			p {
+				margin-top: -5px;
+				margin-bottom: 5px;
+			}
+		}
+	}
+}
+@media (max-width: 340px) {
+	.header {
+
+		&__nav {
+			flex-direction: column;
+
+			&-item {
+				margin-top: 0px;
+			}
+		}
+	}
+}
+ 
   
-  .main-nav a {
-	font-weight: bold;
-	color: #2c3e50;
-  }
   
-  .main-nav a.router-link-exact-active {
-	color: #42b983;
-  }
+
   
-  .main-nav-item {
-	text-decoration: none;
-	margin-right: 0.5rem;
-  }
-  
-  .main-nav-item:hover {
-	text-decoration: underline;
-  }
-  
-  .main-nav-logo {
-	display: flex;
-	align-items: center;
-  }
-  
-  .main-nav-logo-image {
-	max-width: 100%;
-	width: 200px;
-  }
-  
+
