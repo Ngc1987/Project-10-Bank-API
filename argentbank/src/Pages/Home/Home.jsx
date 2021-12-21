@@ -3,8 +3,9 @@ import React from 'react';
 
 
 /**
- * @component
  * @description Component Home, who is rended when there is no connected user at path "/". It resume the advantadges of Argent Bank
+ * 
+ * @category Component
  */
 function Home() {
 

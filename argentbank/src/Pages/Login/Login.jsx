@@ -9,6 +9,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * @component
+ 
  * @description Component SignIn, who is rended when the user click on SignIn (on the header) of the home page.
  */
 function SignIn() {

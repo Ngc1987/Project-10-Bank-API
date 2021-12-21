@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 /**
  * @component
+ 
  * @description Component Error who appears when the datas are fetched and an error is occured 
  */
 function Error() {

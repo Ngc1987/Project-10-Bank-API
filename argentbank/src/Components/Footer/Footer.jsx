@@ -3,6 +3,7 @@ import "./Footer.scss";
 
 /**
  * @component
+ 
  * @description Component Footer who appears on the bottom of all pages of the application 
  */
 function Footer() {

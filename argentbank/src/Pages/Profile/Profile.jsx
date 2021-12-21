@@ -6,8 +6,9 @@ import Loader from '../../Components/Loaders/Loader';
 import Error from '../../Components/Error404/Error';
 
 /**
- * @component
  * @description Component User, who is rended when the user successully connected. It show names of the user, some transactions, and a function to change first name or last name of the user
+ * 
+ * @component
  */
 function User() {
 

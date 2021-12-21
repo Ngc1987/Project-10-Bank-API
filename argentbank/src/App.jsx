@@ -8,10 +8,7 @@ import Profile from "./Pages/Profile/Profile";
 import Error from "./Components/Error404/Error";
 import './App.scss';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom";
-// import {library} from "@fortawesome/fontawesome-svg-core";
-// import {fas} from "@fortawesome/free-solid-svg-icons";
 
-// library.add(fas)
 
 function App() {
   return (

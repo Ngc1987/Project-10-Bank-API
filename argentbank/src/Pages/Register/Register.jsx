@@ -10,8 +10,9 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 /**
+ * Register, who is rended when the user click on "register" on the SignIn form.
  * @component
- * @description Component Register, who is rended when the user click on "register" on the SignIn form.
+ * 
  */
 function Register() {
 	// Take the datas from the inputs

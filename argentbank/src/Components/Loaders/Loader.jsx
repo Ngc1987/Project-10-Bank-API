@@ -2,7 +2,8 @@ import "./Loader.scss";
 import React from 'react';
 
 /**
- * @component
+ * @category Component
+ * 
  * @description Component Loader who appears on sign in during the data fetching before to show the profile component
  */
 function Loader() {

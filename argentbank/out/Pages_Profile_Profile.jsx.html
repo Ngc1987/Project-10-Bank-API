@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Pages/Profile/Profile.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Home</a></h2>
+					<div class="category">
+						<h3>Pages components</h3>
+						<ul>
+							<li><a href="global.html#Home">Home</a></li>
+							<li><a href="global.html#SignIn">SignIn</a></li>
+							<li><a href="global.html#Register">Register</a></li>
+							<li><a href="global.html#User">User</a></li>
+						</ul>
+						<h3>Other components</h3>
+						<ul>
+							<li><a href="global.html#Error">Error</a></li>
+							<li><a href="global.html#Footer">Footer</a></li>
+							<li><a href="global.html#Header">Header</a></li>
+							<li><a href="global.html#Loader">Loader</a></li>
+						</ul>
+					</div>
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Pages/Profile/Profile.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import "./Profile.scss"
+import { getUserInfos, updateProfile } from '../../actions/userActions';
+import Loader from '../../Components/Loaders/Loader';
+import Error from '../../Components/Error404/Error';
+
+/**
+ * @description Component User, who is rended when the user successully connected. It show names of the user, some transactions, and a function to change first name or last name of the user
+ * 
+ * @component
+ */
+function User() {
+
+	const dispatch = useDispatch();
+
+	// Take the user datas on our redux store to show informations on the component
+	const userProfile = useSelector((state) => state.userInfos);
+	const { loading, error, userInfo } = userProfile;
+
+	// Set the state to show first name and last name of the user
+	const [firstName, setFirstName] = useState(userInfo?.firstName ?? "");
+	const [lastName, setLastName] = useState(userInfo?.lastName ?? "");
+
+	// Set if the div element with the inputs to change lat and first name of the user is open
+	const [isOpen, setIsOpen] = useState(false);
+
+	// Take the token from the local storage
+	const token = JSON.parse(localStorage.getItem("token")).body.token;
+
+	// Fetch the user datas with the token from the local storage
+	useEffect(() => {
+		dispatch(getUserInfos(token));
+	}, [dispatch, token])
+
+	// Put the new user datas on our redux store when the user change it
+	const handleChangeNames = async (e) => {
+		e.preventDefault();
+		dispatch(updateProfile(firstName, lastName, token))
+		setIsOpen(false)
+	}
+
+	if (error) {
+		console.error(error);
+		return &lt;Error />
+	}
+	if(loading) {
+		return &lt;Loader />
+	}
+
+	return (
+		
+		&lt;main className="profile">
+
+			&lt;div className="profile__header">
+
+				&lt;h1>Welcome back&lt;br />{userInfo?.firstName ?? ""} {userInfo?.lastName ?? ""} !&lt;/h1>
+				&lt;button className={isOpen ? "profile__header__edit-button hidden" : "profile__header__edit-button visibleButton"} 
+						onClick={() => setIsOpen(true)} >Edit Name&lt;/button>
+			&lt;/div>
+
+			&lt;form action="" className={isOpen ? "profile__updateUser visible" : "profile__updateUser hidden"}>
+
+				&lt;div className="profile__updateUser__input-wrapper">
+
+					&lt;input
+						type="text"
+						id="firstname"
+						name="firstname"
+						placeholder={userInfo?.firstName ?? ""}
+						onChange={(e) => setFirstName(e.target.value)}
+					/>
+
+				&lt;/div>
+
+				&lt;div className="profile__updateUser__input-wrapper">
+
+					&lt;input
+						type="text"
+						id="lastname"
+						name="lastname"
+						placeholder={userInfo?.lastName ?? ""}
+						onChange={(e) => setLastName(e.target.value)}
+						// value={userInfo?.lastName ?? ""}
+					/>
+				&lt;/div>
+
+				&lt;div onClick={handleChangeNames} 
+					 className="profile__updateUser__confirmButton" >Save&lt;/div>
+				&lt;div onClick={() => setIsOpen(false)}  
+					 className="profile__updateUser__confirmButton" >Cancel&lt;/div>
+					 
+			&lt;/form>
+
+			&lt;section className="profile__account">
+
+				&lt;div className="profile__account__wrapper">
+					&lt;h3 className="profile__account__title">Argent Bank Checking (x8349)&lt;/h3>
+					&lt;p className="profile__account__amount">$2,082.79&lt;/p>
+					&lt;p className="profile__account__amount-description">Available Balance&lt;/p>
+				&lt;/div>
+
+				&lt;div className="profile__account__wrapper cta">
+					&lt;button className="profile__account__transaction-button">View transactions&lt;/button>
+				&lt;/div>
+
+			&lt;/section>
+
+			&lt;section className="profile__account">
+
+				&lt;div className="profile__account__wrapper">
+					&lt;h3 className="profile__account__title">Argent Bank Savings (x6712)&lt;/h3>
+					&lt;p className="profile__account__amount">$10,928.42&lt;/p>
+					&lt;p className="profile__account__amount-description">Available Balance&lt;/p>
+				&lt;/div>
+				&lt;div className="profile__account__wrapper cta">
+					&lt;button className="profile__account__transaction-button">View transactions&lt;/button>
+				&lt;/div>
+
+			&lt;/section>
+
+			&lt;section className="profile__account">
+
+				&lt;div className="profile__account__wrapper">
+					&lt;h3 className="profile__account__title">Argent Bank Credit Card (x8349)&lt;/h3>
+					&lt;p className="profile__account__amount">$184.30&lt;/p>
+					&lt;p className="profile__account__amount-description">Current Balance&lt;/p>
+				&lt;/div>
+
+				&lt;div className="profile__account__wrapper cta">
+					&lt;button className="profile__account__transaction-button">View transactions&lt;/button>
+				&lt;/div>
+
+			&lt;/section>
+
+		&lt;/main>
+	)
+}
+
+User.propTypes = {
+
+}
+
+export default User;</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

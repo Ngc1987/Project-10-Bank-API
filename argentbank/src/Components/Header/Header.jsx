@@ -10,6 +10,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * @component
+ 
  * @description Component Header who appears on the top of all pages of the application 
  */
 function Header() {
