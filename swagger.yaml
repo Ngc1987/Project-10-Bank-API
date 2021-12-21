@@ -133,6 +133,23 @@ paths:
           type: integer
           required: true
           description: Numeric ID of the account to get
+        - in: query
+          name: month
+          type: string
+          description: Month of the transaction (if no value, return the current month)
+          enum:
+            - jan
+            - feb
+            - mar
+            - apr
+            - may
+            - jun
+            - jul
+            - aug
+            - sep
+            - oct
+            - nov
+            - dec
       produces:
         - application/json
       responses:
@@ -142,6 +159,10 @@ paths:
             $ref: '#/definitions/ApiAllTransactionsResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized token
+        '403':
+          description: Forbidden access
         '500':
           description: Internal Server Error
           
@@ -176,6 +197,10 @@ paths:
           description: User posting new transaction successully
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized token
+        '403':
+          description: Forbidden access
         '500':
           description: Internal Server Error
           
@@ -212,6 +237,10 @@ paths:
             $ref: '#/definitions/ApiTransactionResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized token
+        '403':
+          description: Forbidden access
         '500':
           description: Internal Server Error
           
@@ -220,7 +249,7 @@ paths:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Put one transaction of an account
+      summary: Put (modify) one transaction of an account
       description: API for modify one transaction of a user
       parameters:
         - in: header
@@ -251,6 +280,10 @@ paths:
           description: User modify transaction successully
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized token
+        '403':
+          description: Forbidden access
         '500':
           description: Internal Server Error
           
@@ -259,7 +292,7 @@ paths:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Put one transaction of an account
+      summary: Delete one transaction of an account
       description: API for modify one transaction of a user
       parameters:
         - in: header
@@ -290,6 +323,10 @@ paths:
           description: User delete transaction successully
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized token
+        '403':
+          description: Forbidden access
         '500':
           description: Internal Server Error
   
@@ -387,25 +424,6 @@ definitions:
             type: array
             items: 
               $ref: "#/definitions/Transaction"
-              
-          # transactions:
-          #   type: object
-          #   properties:
-          #     id:
-          #       type: string
-          #     description:
-          #       type: string
-          #     date:
-          #       type: string
-          #     amount:
-          #       type: integer
-          #     transactionType:
-          #       type: string
-          #       enum: ["electronic", "cash"]
-          #     notes:
-          #       type: string   
-          #     food: 
-          #       $ref: '#/definitions/Food'
   Transaction:
     properties:
       id:
@@ -436,5 +454,4 @@ definitions:
         type: string
       id: 
         type: number
-            
             

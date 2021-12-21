@@ -42,6 +42,8 @@ We have to make an api proposition on a swagger file, for the followings instruc
 - View the details of a transaction in another view
 - Add, modify or delete information about a transaction
 
+- [Here is the complete swagger file](https://github.com/Ngc1987/Project-10-Bank-API/blob/master/swagger.yaml)
+
 ##### Technologies
 - [React](https://reactjs.org/)
 - [React Router Dom](https://v5.reactrouter.com/web/guides/quick-start)
