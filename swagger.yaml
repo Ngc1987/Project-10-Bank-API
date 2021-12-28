@@ -424,6 +424,8 @@ definitions:
             type: array
             items: 
               $ref: "#/definitions/Transaction"
+              
+          
   Transaction:
     properties:
       id:
@@ -437,10 +439,10 @@ definitions:
       transactionType:
         type: string
         enum: ["electronic", "cash"]
+      category: 
+        $ref: '#/definitions/Category'
       notes:
         type: string   
-      food: 
-        $ref: '#/definitions/Food'
 
   DeleteTransaction:
     properties:
@@ -448,10 +450,11 @@ definitions:
         type: string
         description: user email
         
-  Food:
+  Category:
     properties:
-      name:
+      food:
         type: string
-      id: 
-        type: number
+      # id: 
+      #   type: number
+            
             

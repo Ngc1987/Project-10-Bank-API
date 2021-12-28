@@ -1,12 +1,13 @@
-import React, { useEffect, useState} from 'react';
+import React, { useState} from 'react';
 // Same css of Login component
 import "../Login/Login.scss";
 import Loader from '../../Components/Loaders/Loader';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../actions/userActions';
+import { register} from '../../actions/userActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import "./Register.scss"
 
 
 /**
@@ -21,23 +22,26 @@ function Register() {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 
+	// State to show the confirmation modale when user is created
+	const [showModale, setShowModale] = useState(false);
+
 	const navigateTo = useNavigate();
 	const dispatch = useDispatch();
 	const userRegister = useSelector((state) => state.userRegister);
-	// Taking these variables from the redux store
-	const { loading, error, userInfo} = userRegister;
 
-	// If there is userInfo on our store, we go to profile page
-	useEffect(() => {
-		if (userInfo) {
-			navigateTo("/profile");
-		}
-	}, [navigateTo, userInfo])
-	
+	// Taking these variables from the redux store
+	const { loading, error} = userRegister;
+
 	// Put the user email, lastName, firstName and password on our store to connect the user
-	const handleRegister = async (e) => {
+	const handleShowModale = (e) => {
+		e.preventDefault();
+		setShowModale(true)
+	}
+	
+	const handleRegister = (e) => {
 		e.preventDefault();
 		dispatch(register(firstName, lastName, email, password));
+		navigateTo("/login");
 	}
 
 	if (error) {
@@ -51,15 +55,24 @@ function Register() {
 
 		<main className="form bg-dark">
 
+		{showModale && 
+				<div className="confirmSignUpModale">
+					<p>
+						Votre compte a été créé avec succès. Veuillez vous connecter pour y accéder.
+					</p>
+					<button onClick={(e) => handleRegister(e)} >OK</button>
+				</div>
+		}
+
 			<section className="form__content">
 
 				<FontAwesomeIcon icon={faUserCircle} size="lg" />
 				<h1>Register</h1>
 
-				<form onSubmit={handleRegister} >
+				<form onSubmit={(e) =>handleShowModale(e)} >
 
 					<div className="form__content__input-wrapper">
-						<label htmlFor="username">First Name</label>
+						<label htmlFor="firstname">First Name</label>
 						<input
 							type="text"
 							id="firstname"
@@ -69,7 +82,7 @@ function Register() {
 					</div>
 
 					<div className="form__content__input-wrapper">
-						<label htmlFor="username">Last name</label>
+						<label htmlFor="lastname">Last name</label>
 						<input
 							type="text"
 							id="lastname"
@@ -79,7 +92,7 @@ function Register() {
 					</div>
 
 					<div className="form__content__input-wrapper">
-						<label htmlFor="username">Email</label>
+						<label htmlFor="email">Email</label>
 						<input
 							type="email"
 							id="email"

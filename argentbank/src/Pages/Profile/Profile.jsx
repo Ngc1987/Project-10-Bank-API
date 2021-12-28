@@ -4,6 +4,7 @@ import "./Profile.scss"
 import { getUserInfos, updateProfile } from '../../actions/userActions';
 import Loader from '../../Components/Loaders/Loader';
 import Error from '../../Components/Error404/Error';
+import Transaction from '../../Components/Transaction/Transaction';
 
 /**
  * @description Component User, who is rended when the user successully connected. It show names of the user, some transactions, and a function to change first name or last name of the user
@@ -25,6 +26,9 @@ function User() {
 	// Set if the div element with the inputs to change lat and first name of the user is open
 	const [isOpen, setIsOpen] = useState(false);
 
+	// State to show the confirmation modale when user is created
+	const [showModale, setShowModale] = useState(false);
+
 	// Take the token from the local storage
 	const token = JSON.parse(localStorage.getItem("token")).body.token;
 
@@ -36,8 +40,14 @@ function User() {
 	// Put the new user datas on our redux store when the user change it
 	const handleChangeNames = async (e) => {
 		e.preventDefault();
-		dispatch(updateProfile(firstName, lastName, token))
-		setIsOpen(false)
+		dispatch(updateProfile(firstName, lastName, token));
+		setShowModale(true);
+	}
+	
+	const handleHideModale = (e) => {
+		e.preventDefault();
+		setIsOpen(false);
+		setShowModale(false);
 	}
 
 	if (error) {
@@ -51,6 +61,15 @@ function User() {
 	return (
 		
 		<main className="profile">
+
+			{showModale &&
+				<div className="confirmChangesModale">
+					<p>
+						Vos informations on été modifiées avec succès !
+					</p>
+					<button onClick={(e) => handleHideModale(e)} >OK</button>
+				</div>
+			}
 
 			<div className="profile__header">
 
@@ -81,7 +100,6 @@ function User() {
 						name="lastname"
 						placeholder={userInfo?.lastName ?? ""}
 						onChange={(e) => setLastName(e.target.value)}
-						// value={userInfo?.lastName ?? ""}
 					/>
 				</div>
 
@@ -92,46 +110,17 @@ function User() {
 					 
 			</form>
 
-			<section className="profile__account">
-
-				<div className="profile__account__wrapper">
-					<h3 className="profile__account__title">Argent Bank Checking (x8349)</h3>
-					<p className="profile__account__amount">$2,082.79</p>
-					<p className="profile__account__amount-description">Available Balance</p>
-				</div>
-
-				<div className="profile__account__wrapper cta">
-					<button className="profile__account__transaction-button">View transactions</button>
-				</div>
-
-			</section>
-
-			<section className="profile__account">
-
-				<div className="profile__account__wrapper">
-					<h3 className="profile__account__title">Argent Bank Savings (x6712)</h3>
-					<p className="profile__account__amount">$10,928.42</p>
-					<p className="profile__account__amount-description">Available Balance</p>
-				</div>
-				<div className="profile__account__wrapper cta">
-					<button className="profile__account__transaction-button">View transactions</button>
-				</div>
-
-			</section>
-
-			<section className="profile__account">
-
-				<div className="profile__account__wrapper">
-					<h3 className="profile__account__title">Argent Bank Credit Card (x8349)</h3>
-					<p className="profile__account__amount">$184.30</p>
-					<p className="profile__account__amount-description">Current Balance</p>
-				</div>
-
-				<div className="profile__account__wrapper cta">
-					<button className="profile__account__transaction-button">View transactions</button>
-				</div>
-
-			</section>
+			<Transaction title="Argent Bank Checking (x8349)"
+						amount="$2,082.79"
+				description="Available Balance" />
+				
+			<Transaction title="Argent Bank Savings (x6712)"
+				amount="$10,928.42"
+				description="Available Balance" />
+				
+			<Transaction title="Argent Bank Credit Card (x8349)"
+				amount="$184.30"
+				description="Current Balance" />
 
 		</main>
 	)

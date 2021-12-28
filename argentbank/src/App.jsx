@@ -51,17 +51,4 @@ function RequireAuth({ children }) {
       return children;
 }
 
-// function PrivateRoute() {
-
-//       let token = JSON.parse(localStorage.getItem('token'));
-//       // const navigateTo = useNavigate()
-//       if(token === null) {
-//             // navigateTo("/login")
-//             return <Login/>
-//       } 
-//       return (
-//             <Profile />
-//       )
-// }
-
 export default App;

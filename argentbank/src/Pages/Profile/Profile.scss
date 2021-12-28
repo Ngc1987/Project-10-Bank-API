@@ -7,6 +7,28 @@
 	align-items: center;
 	background-color: #bac0d1b2;
 
+	.confirmChangesModale {
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		transform: translate(-50%, -20%);
+		width: 200px;
+		height: min-content;
+		border-radius: 10px;
+		padding: 20px 0;
+		background-color: #564be9;
+		color: white;
+		transition: all 0.3s ease;
+	
+		button {
+			padding: 5px;
+			margin-top: 10px;
+			color: #12002b;
+			background-color: white;
+			border-radius: 5px;
+		}
+	}
+
 	.visibleButton {
 		opacity: 1;
 		height: 40px;
