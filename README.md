@@ -30,7 +30,6 @@ Thomas Semeria
 - SCSS
 
 ## 4. Project
-This project is the 13th project for the React front-end developer [formation](https://openclassrooms.com/fr/paths/516-developpeur-dapplication-javascript-react#main_content) of OpenClassRooms.
 
 ##### Part one
 We have to build an App with the provided static html and css. The goal of this project is to implement the sign in and log out system for the user.
